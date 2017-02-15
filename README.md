@@ -1,5 +1,5 @@
 ![FreeMind logo](https://cldup.com/7rBlZKgZ3u-3000x3000.png)
-### FreeMind - free mind mapping software in Docker container. This image uses X11 sockets, not ssh/vnc.
+### FreeMind (v1.0.1 Beta 2) - free mind mapping software in Docker container. This image uses X11 socket.
 
 Requirements:
 ---
@@ -9,26 +9,42 @@ Requirements:
 How to:
 ---
 - Build image  
-`docker build -t freemind .`   
+`docker build -t freemind .`  
 **or**  
 - Pull image from Docker Registry  
 `docker pull loadaverage/freemind`
 - Allow access to X server (for some Linux distros)  
-`xhost local:root`
+`xhost local:freemind`
 - Run own FreeMind image
 
  ```bash
-docker run \
-  -v ~/Downloads/tmp:/tmp \
-  -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -e DISPLAY=$DISPLAY freemind
+docker run --rm \
+      -v ~/Downloads/freemind:/home/freemind/Downloads \
+      -v ~/.freemind:/home/freemind/.freemind/ \
+      -v ~/.themes:/home/freemind/.themes:ro \
+      -v ~/.fonts:/home/freemind/.fonts:ro \
+      -v ~/.icons:/home/freemind/.icons:ro \
+      -v /usr/share/themes:/usr/share/themes:ro \
+      -v /usr/share/fonts:/usr/share/fonts:ro \
+      -v /tmp/.X11-unix:/tmp/.X11-unix \
+      -e DISPLAY=$DISPLAY freemind
 ```
-- Run FreeMind image from Docker registry  
+**NOTE:** mounted config directories should have correct permissions, otherwise Freemind will not work properly.  
+For example:
+
+ ```bash
+mkdir ~/.freemind && chmod 777 ~/.freemind
+```
+- Run FreeMind image from Docker Registry  
 ```bash
-docker run \
-  -v ~/Downloads/tmp:/tmp \
-  -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -e DISPLAY=$DISPLAY loadaverage/freemind
+docker run --rm \
+      -v ~/Downloads/freemind:/home/freemind/Downloads \
+      -v ~/.freemind:/home/freemind/.freemind/ \
+      -v ~/.themes:/home/freemind/.themes:ro \
+      -v ~/.fonts:/home/freemind/.fonts:ro \
+      -v ~/.icons:/home/freemind/.icons:ro \
+      -v /usr/share/themes:/usr/share/themes:ro \
+      -v /usr/share/fonts:/usr/share/fonts:ro \
+      -v /tmp/.X11-unix:/tmp/.X11-unix \
+      -e DISPLAY=$DISPLAY loadaverage/freemind
 ```
-NOTE: it's a good idea to mount FreeMind config directory:  
-```-v ~/.freemind:/root/.freemind```
