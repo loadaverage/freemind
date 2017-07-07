@@ -29,12 +29,7 @@ docker run --rm \
       -v /tmp/.X11-unix:/tmp/.X11-unix \
       -e DISPLAY=$DISPLAY freemind
 ```
-**NOTE:** mounted config directories should have correct permissions, otherwise Freemind will not work properly.  
-For example:
 
- ```bash
-mkdir ~/.freemind && chmod 777 ~/.freemind
-```
 - Run FreeMind image from Docker Registry  
 ```bash
 docker run --rm \
@@ -48,3 +43,7 @@ docker run --rm \
       -v /tmp/.X11-unix:/tmp/.X11-unix \
       -e DISPLAY=$DISPLAY loadaverage/freemind
 ```
+**NOTES:**
+- Volumes: mounted config directories should have correct permissions, otherwise Freemind will not work properly
+- Xhost: on Linux distros you may need explicitly allow access to X server through xhost command: xhost local:freemind
+- Fonts: font settings for JRE: https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts#Anti-aliasing
