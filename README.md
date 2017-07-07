@@ -1,5 +1,5 @@
 ![FreeMind logo](https://cldup.com/7rBlZKgZ3u-3000x3000.png)
-### FreeMind (v1.0.1 Beta 2) - free mind mapping software in Docker container. This image uses X11 socket.
+### Dockerized Freemind (v1.0.1 Beta 2), based on Alpine Linux, uses X11 socket
 
 Requirements:
 ---
