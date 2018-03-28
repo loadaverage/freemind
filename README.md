@@ -1,7 +1,6 @@
 ![Docker build status](https://img.shields.io/docker/build/loadaverage/freemind.svg)
 ![Docker automated](https://img.shields.io/docker/automated/loadaverage/freemind.svg)
-![FreeMind logo](https://cldup.com/7rBlZKgZ3u-3000x3000.png)
-### Dockerized Freemind (v1.0.1 Beta 2), based on Alpine Linux, uses X11 socket
+### Dockerized Freemind - free mind mapping software, based on Alpine Linux, uses X11 socket
 
 Requirements:
 ---
