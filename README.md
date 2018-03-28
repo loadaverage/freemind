@@ -1,3 +1,5 @@
+![Docker build status](https://img.shields.io/docker/build/loadaverage/freemind.svg)
+![Docker automated](https://img.shields.io/docker/automated/loadaverage/freemind.svg)
 ![FreeMind logo](https://cldup.com/7rBlZKgZ3u-3000x3000.png)
 ### Dockerized Freemind (v1.0.1 Beta 2), based on Alpine Linux, uses X11 socket
 
@@ -43,6 +45,28 @@ docker run --rm \
       -v /tmp/.X11-unix:/tmp/.X11-unix \
       -e DISPLAY=$DISPLAY loadaverage/freemind
 ```
+- Docker for Mac
+
+Note: UNIX sockets in Docker for Mac are not [yet](https://github.com/docker/for-mac/issues/483) supported, thus X11 network forwarding is the only way to go
+
+- Allow access to the X11
+```bash
+export X11_IP=$(ifconfig en0 | grep [i]net | awk '$1 == "inet" {print $2}')
+xhost +$X11_IP
+```
+**or**
+- Use socat for UNIX socket -> TCP port forwarding
+```bash
+socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"
+```
+```bash
+docker run --rm \
+      -v ~/Downloads/freemind:/home/freemind/Downloads \
+      -v ~/.freemind:/home/freemind/.freemind/ \
+      -v ~/.fonts:/home/freemind/.fonts:ro \
+      -e DISPLAY=$X11_IP:0 loadaverage/freemind
+```
+
 **NOTES:**
 - Volumes: mounted config directories should have correct permissions, otherwise Freemind will not work properly
 - Xhost: on Linux distros you may need explicitly allow access to X server through xhost command: xhost local:freemind
