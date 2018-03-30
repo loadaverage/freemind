@@ -50,7 +50,7 @@ Note: UNIX sockets in Docker for Mac are not [yet](https://github.com/docker/for
 
 - Allow access to the X11
 ```bash
-export X11_IP=$(ifconfig en0 | grep [i]net | awk '$1 == "inet" {print $2}')
+export X11_IP=$(ifconfig en0 | grep '[i]net' | awk '$1 == "inet" {print $2}')
 xhost +$X11_IP
 ```
 **or**
